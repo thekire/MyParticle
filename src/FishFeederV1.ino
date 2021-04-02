@@ -9,7 +9,7 @@
 Servo servo; /* create servo object to control a servo */
 
 char auth[] = "ACCb2YSlpuo-quhxXIbNd9q3NtSP41Qo";
-int servoMode = 0;
+int FeederMode = 0;
 int Spos1 = 0;
 int Spos2 = 180;
 int StartFeeder = 0;
@@ -43,11 +43,11 @@ BLYNK_WRITE(V5)
   period = param.asInt();
 }
 BLYNK_WRITE(V4){
-  servoMode = param.asInt();
+  FeederMode = param.asInt();
 } 
 BLYNK_WRITE(V3)
 {
-  if(servoMode==0){
+  if(FeederMode==0){
     servo.write(param.asInt());
   }
   
@@ -56,7 +56,7 @@ BLYNK_WRITE(V3)
 BLYNK_WRITE(V2)
 {
   Mstate = (param.asInt());
-  if (servoMode == 0)
+  if (FeederMode == 0)
   {
     //digitalWrite(D2, Mstate);
   }
@@ -65,7 +65,7 @@ void AutomaticMode()
 {
   time_now = millis();
 
-  if (servoMode == 1)
+  if (FeederMode == 1)
   {
     digitalWrite(D2, HIGH);
     if (time_now - time_pre1 >= period)
